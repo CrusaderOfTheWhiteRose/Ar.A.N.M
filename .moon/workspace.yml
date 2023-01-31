@@ -1,0 +1,23 @@
+$schema: 'https://moonrepo.dev/schemas/workspace.json'
+
+projects:
+  client: 'client/angular'
+  server: 'server/nest'
+
+node:
+  version: '18.12.0'
+
+  packageManager: 'pnpm'
+
+  pnpm:
+    version: '7.14.0'
+
+  addEnginesConstraint: true
+
+  aliasPackageNames: 'name-and-scope'
+
+  dedupeOnLockfileChange: true
+
+  inferTasksFromScripts: true
+
+  syncProjectWorkspaceDependencies: true

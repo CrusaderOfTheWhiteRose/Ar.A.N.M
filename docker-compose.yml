@@ -1,0 +1,46 @@
+version: "3.1"
+
+services:
+  frontEnd:
+    build: angular
+    container_name: angular
+    restart: always
+    ports:
+      - 4200:4200
+    stdin_open: true
+    volumes:
+      - ./angular:/app
+      - /app/node_modules
+    networks:
+      - angular-express
+    depends_on:
+      - backend
+
+  backEnd:
+    build: nest
+    container_name: nest
+    restart: always
+    ports:
+      - 5000:5000
+    volumes:
+      - ./nest:/app
+      - /app/node_modules
+    depends_on:
+      - mongo
+    networks:
+      - express-mongo
+      - angular-express
+
+  mongoDB:
+    container_name: mongo
+    restart: always
+    image: mongo:latest
+    volumes:
+      - ./data:/data/db
+    networks:
+      - express-mongo
+    expose:
+      - 27017
+networks:
+  angular-express:
+  express-mongo:

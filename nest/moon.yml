@@ -1,0 +1,16 @@
+type: 'application'
+language: 'typescript'
+
+project:
+  name: 'nest'
+  description: 'Its server side of my application'
+  channel: '#nest'
+  owner: 'Me'
+  maintainers: ['Me']
+
+tasks:
+  build:
+    command: 'nest start'
+    inputs:
+      - 'package.json'
+      - 'package-lock.json'

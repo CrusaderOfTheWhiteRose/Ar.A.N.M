@@ -1,0 +1,16 @@
+type: 'application'
+language: 'typescript'
+
+project:
+  name: 'angular'
+  description: 'Its client side of my application'
+  channel: '#angular'
+  owner: 'Me'
+  maintainers: ['Me']
+
+tasks:
+  build:
+    command: 'ng serve -o'
+    inputs:
+      - 'package.json'
+      - 'package-lock.json'

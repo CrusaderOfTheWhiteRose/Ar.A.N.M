@@ -1,0 +1,41 @@
+# It is in the root folder
+root = true
+
+# Every js/ts file config
+[{*.ts, *.tsx}]
+indent_style = tab
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+max_line_length = 80
+
+# Every sass file config
+[*.sass]
+indent_style = space
+indent_size = 2
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+max_line_length = 80
+
+# Every html file config
+[*.html]
+indent_style = tab
+indent_size = 4
+end_of_line = lf
+charset = utf-8
+trim_trailing_whitespace = true
+
+# ReadMe file config
+[.md]
+indent_style = space
+indent_size = 1
+max_line_length = false
+insert_final_newline = false
+
+# Every .json and .yml configs
+[{*.json, *.yml}]
+indent_style = tab
+indent_size = 4
+insert_final_newline = false
