@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID, InputType } from "@nestjs/graphql"
 
+//Data field that can be send with graphql into server (graphql input)
 @ObjectType()
 export class Card {
 	@Field((type) => ID)
@@ -23,10 +24,14 @@ export class Card {
 	@Field()
 	fire: number
 
+	@Field(type => [String], { nullable: true })
+	arsons: string[]
+
 	@Field({ nullable: true })
 	reported: string
 }
 
+//Data field that can be send by graphql (graphql output)
 @InputType()
 export class InputCard {
 	@Field({ nullable: true })
@@ -46,6 +51,9 @@ export class InputCard {
 
 	@Field({ nullable: true })
 	fire: number
+
+	@Field(type => [String], { nullable: true })
+	arsons: string[]
 
 	@Field({ nullable: true })
 	reported: string
