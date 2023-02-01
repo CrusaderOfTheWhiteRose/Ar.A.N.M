@@ -20,8 +20,8 @@ import { User, UserSchema } from "./user/user.shema"
 			installSubscriptionHandlers: true,
 			include: [UserModule, CardModule],
 		}),
-		MongooseModule.forFeature([{ name: Card.name , schema: CardSchema }]),
-		MongooseModule.forFeature([{ name: User.name , schema: UserSchema }]),
+		MongooseModule.forFeature([{ name: Card.name, schema: CardSchema }]),
+		MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
 		MongooseModule.forRoot(process.env.MONGODB),
 	],
 })
