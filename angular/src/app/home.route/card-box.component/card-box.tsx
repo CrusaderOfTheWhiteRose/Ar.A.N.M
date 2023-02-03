@@ -1,4 +1,7 @@
+import { useInjected } from "@bubblydoo/angular-react"
 import * as React from "react"
+import { first } from "rxjs"
+import { HomeRouteService } from "../home-route.component.service"
 import Card from "./card/card"
 
 //This is what my clidrens will get - nothing, until its runs
@@ -13,13 +16,11 @@ export default function CardBox() {
 		upper: "someUpper",
 		center: "someCenter",
 		bottom: "someBottom",
+		fire: 0,
 	}
 	return (
-		//Grabs all the body
-		<main className='def-theme-back w-screen h-screen'>
-			//This component is to prevent making things like that "cardInfo.cardInfo.cardInfo.fire"
+		<main className='w-screen flex flex-wrap p-12 gap-12'>
 			<CardContext.Provider value={allCard}>
-				//Its the card, nothing special
 				<Card key={allCard.id} />
 			</CardContext.Provider>
 		</main>

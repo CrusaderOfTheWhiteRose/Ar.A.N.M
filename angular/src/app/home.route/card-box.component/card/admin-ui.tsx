@@ -3,9 +3,10 @@ import { motion } from "framer-motion"
 import { CardContext } from "../card-box"
 
 export default function AdminUI() {
+	//Take card's id from context
 	const cardInfo: any = React.useContext(CardContext)
 	return (
-		<div className='absolute z-[2] flex flex-col -translate-y-8'>
+		<div className='absolute z-[2] flex flex-col -translate-x-[1.72em]'>
 			<motion.button
 				whileHover={{ scale: 1.2 }}
 				whileTap={{ scale: 0.8 }}

@@ -6,18 +6,27 @@
   .def-theme-text
     @apply transition-colors duration-1000 text-lightColourText dark:text-darkColourText
   .def-theme-back
-    @apply transition-colors duration-1000 bg-lightColourBack dark:text-darkColourBack
+    @apply transition-colors duration-1000 bg-lightColourBack dark:bg-darkColourBack
   .def-theme-front
-    @apply transition-colors duration-1000 bg-lightColour1 dark:text-darkColour1
+    @apply transition-colors duration-1000 bg-lightColour1 dark:bg-darkColour1
   .def-theme-front-front
-    @apply transition-colors duration-1000 bg-lightColour2 dark:text-darkColour2
+    @apply transition-colors duration-1000 bg-lightColour2 dark:bg-darkColour2
+  .def-hover
+    @apply duration-1000 hover:scale-125 focus:scale-125 hover:bg-lightColour1 dark:hover:bg-darkColour2 focus:bg-lightColour1 dark:focus:bg-darkColour2
+  .input-hover
+    @apply bg-lightColourBack dark:bg-darkColourBack duration-1000 hover:scale-125 focus:scale-125 hover:bg-lightColour1 dark:hover:bg-darkColour2 focus:bg-lightColour1 dark:focus:bg-darkColour2
+  .button-hover
+    @apply transition-colors bg-lightColourBack dark:bg-darkColourBack duration-1000 hover:scale-125 focus:scale-125 hover:bg-lightColour1 dark:hover:bg-darkColour2 focus:bg-lightColour1 dark:focus:bg-darkColour2
   .def-svg
-    @apply h-8 w-8 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour1 hover:animate-spin
+    @apply h-8 w-8 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour2 hover:animate-spin
   .small-svg
-    @apply h-6 w-6 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour1
+    @apply h-6 w-6 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour2
   .def-svg-button
     @apply h-12 w-12 flex justify-center items-center transition-colors duration-1000 rounded-full ring-2 ring-lightColourText dark:ring-darkColourText
-
+  .def-form-parent
+    @apply fixed z-[10] left-0 flex justify-center items-center h-screen w-screen
+  .def-form
+    @apply py-[0.8em] px-[0.6em] gap-[0.4em] fixed z-[12] flex flex-col justify-center items-center shadow-md rounded-md
 *
   margin: 0px
   padding: 0px

@@ -2,14 +2,14 @@ import { Component } from "@angular/core"
 import { AngularReactService } from "@bubblydoo/angular-react"
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
 import * as React from "react"
-import { QueryClientProvider } from "react-query"
+import { HomeRouteService } from "./home.route/home-route.component.service"
 
 @Component({
 	selector: "app-root",
-	templateUrl: "./app.component.html",
+	template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
-	constructor(angularReact: AngularReactService) {
+	constructor(private HRCS: HomeRouteService, angularReact: AngularReactService) {
 		const cache = new InMemoryCache({
 			typePolicies: {
 				Query: {
@@ -28,7 +28,16 @@ export class AppComponent {
 			cache,
 		})
 		angularReact.wrappers.push(({ children }) => React.createElement(ApolloProvider, { client, children }))
-		angularReact.wrappers.push(() => React.createElement(React.StrictMode))
-		angularReact.wrappers.push(() => React.createElement(QueryClientProvider))
+	}
+
+	ngOnInit() {
+		this.VerifyTheme()
+	}
+
+	VerifyTheme() {
+		if (localStorage.getItem("theme") == "dark" || window.matchMedia("(prefers-color-scheme: dark)").matches)
+			document.documentElement.classList.add("dark")
+		if (localStorage.getItem("theme") == "light" || window.matchMedia("(prefers-color-scheme: light)").matches)
+			document.documentElement.classList.remove("dark")
 	}
 }
