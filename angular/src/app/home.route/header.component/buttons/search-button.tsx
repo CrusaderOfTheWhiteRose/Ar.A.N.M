@@ -62,21 +62,21 @@ export default function SearchButton() {
 				{formOpen == true ? (
 					<motion.div
 						className='def-form-parent'
-						initial={{ opacity: 0, scale: 0.75, y: -800 }}
-						animate={{ opacity: 100, scale: 1, y: -50 }}
-						exit={{ opacity: 0, scale: 0.8, y: 800 }}
+						initial={{ opacity: 0, scale: 0.75, y: -1 * window.innerHeight }}
+						animate={{ opacity: 100, scale: 1, y: 0 }}
+						exit={{ opacity: 0, scale: 0.8, y: -1 * window.innerHeight }}
 						transition={{ type: "spring", stiffness: 100, damping: 8, duration: 10 }}>
 						<div
 							onClick={() => {
 								setFormOpen(false)
 							}}
 							className='absolute z-[-2] h-full w-full'></div>
-						<div className='def-theme-back relative top-[-2rem] flex flex-col shadow-lg h-[80vh] w-[80vw] py-[2.5em] px-[2em]'>
-							<div className='flex justify-end'>
-								<div className='shadow-md p-[1.4em]'>
+						<div className='def-theme-back relative top-[-2rem] flex flex-col shadow-lg h-[80vh] w-[80vw] py-[0px] px-[0px] lg:py-[2.5em] lg:px-[2em]'>
+							<div className='flex justify-center pt-[2vh] lg:pt-[0px] lg:justify-end'>
+								<div className='shadow-md p-[1.4vmax] lg:p-[1.4em]'>
 									<input
 										type='text'
-										className='w-[40ch] h-[6vh] def-theme-back def-theme-text'
+										className='w-[100%] lg:w-[40ch] h-[6vh] def-theme-back def-theme-text'
 										placeholder='Search'
 										onChange={(event) => {
 											setSearchFor(event.target.value)
@@ -84,7 +84,7 @@ export default function SearchButton() {
 									/>
 									<div className='flex flex-row pt-[0.2em] gap-[0.2em]'>
 										<motion.button
-											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back def-theme-text'
+											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back text-[2vh] lg:text-[1em]'
 											whileTap={{ scale: 0.8 }}
 											whileHover={{ scale: 1.2 }}
 											transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -94,7 +94,7 @@ export default function SearchButton() {
 											ID
 										</motion.button>
 										<motion.button
-											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back def-theme-text'
+											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back text-[2vh] lg:text-[1em]'
 											whileTap={{ scale: 0.8 }}
 											whileHover={{ scale: 1.2 }}
 											transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -104,7 +104,7 @@ export default function SearchButton() {
 											Author
 										</motion.button>
 										<motion.button
-											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back def-theme-text'
+											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back text-[2vh] lg:text-[1em]'
 											whileTap={{ scale: 0.8 }}
 											whileHover={{ scale: 1.2 }}
 											transition={{ type: "spring", stiffness: 400, damping: 10 }}
@@ -114,7 +114,7 @@ export default function SearchButton() {
 											Upper
 										</motion.button>
 										<motion.button
-											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back def-theme-text'
+											className='flex justify-center items-center px-[0.6em] py-[0.4em] w-[110%] h-[20%] shadow-md def-theme-back text-[2vh] lg:text-[1em]'
 											whileTap={{ scale: 0.8 }}
 											whileHover={{ scale: 1.2 }}
 											transition={{ type: "spring", stiffness: 400, damping: 10 }}

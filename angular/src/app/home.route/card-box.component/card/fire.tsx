@@ -3,7 +3,6 @@ import { motion } from "framer-motion"
 import { CardContext } from "../card-box"
 import { useInjected } from "@bubblydoo/angular-react"
 import { AppService } from "src/app/app.service"
-import { HomeRouteService } from "../../home-route.component.service"
 
 export default function Fire() {
 	//Take fire number from context
@@ -14,11 +13,12 @@ export default function Fire() {
 	const [checkUser, doCheckUser] = React.useState(false)
 	return (
 		<>
-			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(HomeRouteService).SendToRules() : null) : null}
-			<div className='flex justify-center items-center flex-col absolute z-2 w-8 h-14 shadow-md -translate-y-14'>
+			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}
+			<div className='flex justify-center items-center flex-col-reverse absolute right-0 lg:left-0 z-[2] w-[6vh] h-[12vh] lg:w-8 lg:h-14 shadow-md -translate-y-[12vh] lg:-translate-y-14'>
 				<button
 					onClick={() => {
 						moreFire(!fire)
+						doCheckUser(true)
 					}}>
 					{fire == true ? (
 						<motion.svg

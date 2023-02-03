@@ -18,7 +18,7 @@ export default function Card() {
 					<motion.div drag dragConstraints={dragZone}>
 						{useInjected(AppService).user.permission == true ? <AdminUI /> : null}
 						<button
-							className='absolute z-[2] w-8 h-8 shadow-md flex justify-center items-center'
+							className='absolute right-0 lg:left-0 z-[2] h-[6vh] lg:h-8 w-[6vh] lg:w-8 shadow-md flex justify-center items-center'
 							onClick={() => {
 								alert(`Card id: ${cardInfo.id}`)
 							}}>
@@ -39,15 +39,15 @@ export default function Card() {
 							</motion.svg>
 						</button>
 						<motion.div
-							className='shadow-md max-w-[20rem] p-4 break-all'
+							className='shadow-md w-screen pt-[1vmax] h-[22vh] lg:h-auto lg:max-w-[20rem] lg:p-4 break-all'
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}>
 							<div className='flex flex-row justify-around gap-12'>
-								<cite className='font-thin text-lg translate-x-8 def-theme-text'>{cardInfo.author}</cite>
-								<time className='antialiased font-thin text-sm def-theme-text'>{cardInfo.time}</time>
+								<cite className='font-thin text-[2.8vmax] lg:text-lg translate-x-8 def-theme-text'>{cardInfo.author}</cite>
+								<time className='antialiased font-thin text-[2vmax] lg:text-sm def-theme-text'>{cardInfo.time}</time>
 							</div>
 							<div className='flex align-middle justify-center items-center flex-col'>
-								<article className='text-4xlg font-bold def-theme-text'>{cardInfo.upper}</article>
+								<article className='def-theme-text lg:text-4xlg font-bold'>{cardInfo.upper}</article>
 								{cardInfo.center != null ? null : (
 									<img
 										src={cardInfo.center}
@@ -56,7 +56,7 @@ export default function Card() {
 										onDragStart={(event) => event.preventDefault()}
 									/>
 								)}
-								<article className='text-2xlg def-theme-text'>{cardInfo.bottom}</article>
+								<article className='def-theme-text lg:text-2xlg'>{cardInfo.bottom}</article>
 							</div>
 						</motion.div>
 						<Fire />

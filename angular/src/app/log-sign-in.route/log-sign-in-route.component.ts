@@ -1,7 +1,10 @@
 import { Component } from "@angular/core"
+import logSignInRoute from "./log-sign-in-route"
 
 @Component({
 	selector: "log-sign-in-route",
-	templateUrl: "log-sign-in-route.component.html",
+	template: `<react-wrapper [component]='logSignInRoute' />`,
 })
-export class LogSignInRouteComponent {}
+export class LogSignInRouteComponent {
+	logSignInRoute = logSignInRoute
+}

@@ -1,19 +1,23 @@
 <!--Annoing conteiner will jump in right bottom corner-->
 <div
 	*ngIf="this.ShowPolicyRules"
-	class="fixed z-[8] w-[14rem] h-[8rem] p-4 right-0 bottom-0 duration-1000 animate-bounce flex flex-col justify-center items-center shadow-md rounded-sm def-theme-font-font def-theme-text">
+	class="fixed z-[8] w-[28vh] lg:w-[14rem] h-[16vh] lg:h-[8rem] p-4 right-0 bottom-0 duration-1000 animate-bounce flex flex-col justify-center items-center shadow-md rounded-sm def-theme-font-font def-theme-text">
 	<!--Hey, look over there!!!-->
-	<h5>POLICY ALERT</h5>
+	<p class="text-[2vh] lg:text-[1em]">POLICY ALERT</p>
 	<!--Do not forget either-->
-	<h6>Do not forget to look at</h6>
+	<p class="text-[2vh] lg:text-[1em]">Do not forget to look at</p>
 	<!--RULES      and       POLICY-->
-	<div class="gap-[0.6em] flex flex-row">
-		<a (click)="this.SendToRules()" class="def-theme-text cursor-pointer text-lightColour1 dark:text-darkColour1 hover:animate-ping"
-			>RULES</a
-		>
+	<div class="gap-[0.6em] flex flex-row text-[2vh] lg:text-[1em]">
+		<button
+			(click)="this.SendToRules()"
+			class="def-theme-text text-[2vh] lg:text-[1em] cursor-pointer text-lightColour1 dark:text-darkColour1 hover:animate-ping">
+			RULES
+		</button>
 		<div>and</div>
-		<a (click)="this.SendToRules()" class="def-theme-text cursor-pointer text-lightColour2 dark:text-darkColour2 hover:animate-ping"
-			>POLICY</a
-		>
+		<button
+			(click)="this.SendToRules()"
+			class="def-theme-text text-[2vh] lg:text-[1em] cursor-pointer text-lightColour2 dark:text-darkColour2 hover:animate-ping">
+			POLICY
+		</button>
 	</div>
 </div>

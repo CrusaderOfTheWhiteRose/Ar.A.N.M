@@ -54,7 +54,7 @@ export default function NewCardButton() {
 	const [checkUser, doCheckUser] = React.useState(false)
 	return (
 		<>
-			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(HomeRouteService).SendToRules() : null) : null}
+			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}
 			<motion.button
 				className='def-svg-button'
 				whileHover={{ scale: 1.2 }}
@@ -81,10 +81,10 @@ export default function NewCardButton() {
 			<AnimatePresence>
 				{formOpen == true ? (
 					<motion.div
-						className='def-form-parent'
-						initial={{ opacity: 0, scale: 0.75, y: 400 }}
-						animate={{ opacity: 100, scale: 1, y: -50 }}
-						exit={{ opacity: 0, scale: 0.8, y: 800 }}
+						className='def-form-parent fixed'
+						initial={{ opacity: 0, scale: 0.75, y: -1 * window.innerHeight }}
+						animate={{ opacity: 100, scale: 1, y: 0 }}
+						exit={{ opacity: 0, scale: 0.8, y: -1 * window.innerHeight }}
 						transition={{ type: "spring", stiffness: 100, damping: 8, duration: 10 }}>
 						<div
 							onClick={() => {
@@ -92,20 +92,16 @@ export default function NewCardButton() {
 							}}
 							className='h-full w-full'></div>
 						<form className='def-form def-theme-back'>
-							<div className='gap-[1em] flex flex-col justify-center items-center def-theme-back'>
-								<label htmlFor='text'>UPPER TEXT</label>
+							<div className='gap-0 lg:gap-[1em] flex flex-col justify-center items-center def-theme-back'>
 								<input
 									id='text'
 									className='w-[20ch] input-hover'
-									required
-									maxLength={64}
+									placeholder="UpperText"
 									type='text'
-									title='Only letters allowed'
 									onChange={() => inputHandler(event, 1)}
 								/>
 							</div>
 							<div className='gap-[1em] flex flex-col justify-center items-center'>
-								<label htmlFor='file'>Select Image</label>
 								<input
 									type='file'
 									id='file'
@@ -115,13 +111,13 @@ export default function NewCardButton() {
 									onChange={() => inputHandler(event, 2)}
 								/>
 								<label htmlFor='file'>
-									<img src={image} id='img' className='w-[20vh] h-[20vh] object-cover rounded-2xl input-hover' />
+									<img src={image} id='img' className='w-[20vh] h-[20vh] object-cover rounded-2xl input-hover content(`Image`)' />
 								</label>
 							</div>
-							<div className='gap-[1em] flex flex-col justify-center items-center'>
-								<label htmlFor='textarea'>BOTTOM TEXT</label>
+							<div className='gap-[1em] flex flex-col justify-center items-center '>
 								<textarea
 									id='textarea'
+									placeholder="BottomText"
 									className='p-[1em] w-[20ch] h-[20vh] resize-none input-hover'
 									onChange={() => inputHandler(event, 3)}></textarea>
 							</div>

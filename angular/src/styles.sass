@@ -4,7 +4,7 @@
 
 @layer components
   .def-theme-text
-    @apply transition-colors duration-1000 text-lightColourText dark:text-darkColourText
+    @apply text-[4vmax] lg:text-[1em] transition-colors duration-1000 text-lightColourText dark:text-darkColourText
   .def-theme-back
     @apply transition-colors duration-1000 bg-lightColourBack dark:bg-darkColourBack
   .def-theme-front
@@ -14,19 +14,23 @@
   .def-hover
     @apply duration-1000 hover:scale-125 focus:scale-125 hover:bg-lightColour1 dark:hover:bg-darkColour2 focus:bg-lightColour1 dark:focus:bg-darkColour2
   .input-hover
-    @apply bg-lightColourBack dark:bg-darkColourBack duration-1000 hover:scale-125 focus:scale-125 hover:bg-lightColour1 dark:hover:bg-darkColour2 focus:bg-lightColour1 dark:focus:bg-darkColour2
+    @apply transition-colors duration-1000 placeholder:italic placeholder:text-center bg-lightColourBack dark:bg-darkColourBack
   .button-hover
     @apply transition-colors bg-lightColourBack dark:bg-darkColourBack duration-1000 hover:scale-125 focus:scale-125 hover:bg-lightColour1 dark:hover:bg-darkColour2 focus:bg-lightColour1 dark:focus:bg-darkColour2
   .def-svg
-    @apply h-8 w-8 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour2 hover:animate-spin
+    @apply h-[3vh] lg:h-8 w-[3vh] lg:w-8 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour2 hover:animate-spin
   .small-svg
-    @apply h-6 w-6 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour2
+    @apply h-[6vh] lg:h-6 w-[6vh] lg:w-6 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour2
   .def-svg-button
-    @apply h-12 w-12 flex justify-center items-center transition-colors duration-1000 rounded-full ring-2 ring-lightColourText dark:ring-darkColourText
+    @apply h-[6vh] lg:h-12 w-[6vh] lg:w-12 flex justify-center items-center transition-colors duration-1000 rounded-none lg:rounded-full ring-2 ring-lightColourText dark:ring-darkColourText
   .def-form-parent
-    @apply fixed z-[10] left-0 flex justify-center items-center h-screen w-screen
+    @apply fixed z-[10] left-0 top-0 flex justify-center items-center h-screen w-screen
   .def-form
     @apply py-[0.8em] px-[0.6em] gap-[0.4em] fixed z-[12] flex flex-col justify-center items-center shadow-md rounded-md
+  .def-h1
+    @apply pl-[0px] text-[6vmax] lg:pl-4 lg:text-[2em] transition-colors duration-1000 text-lightColourText dark:text-darkColourText
+  .def-h2
+    @apply pl-[0px] text-[4vmax] lg:pl-8 lg:text-[1em] transition-colors duration-1000 text-lightColourText dark:text-darkColourText
 *
   margin: 0px
   padding: 0px

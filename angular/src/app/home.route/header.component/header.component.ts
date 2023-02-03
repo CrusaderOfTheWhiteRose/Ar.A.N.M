@@ -16,15 +16,12 @@ export class HeaderComponent {
 	switchStyleButton = switchStyleButton
 	switchThemeButton = switchThemeButton
 	searchButton = searchButton
-
 	constructor(@Inject(AppService) public AS: AppService) {}
-
-	SendToLogSignIn() {
-		this.AS.CallRoute("LogSignIn")
-	}
-
-	LogOut() {
-		this.AS.LogOut()
-		location.reload();
+	// (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
+	magicNumber = 0
+	misterMagic = ["`(*>﹏<*)′", "(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧", "o((>ω< ))o", "(ﾉ*ФωФ)ﾉ", "щ(ʘ╻ʘ)щ"]
+	changeWizardo() {
+		if (this.magicNumber >= 4) this.magicNumber = 0
+		else this.magicNumber++
 	}
 }

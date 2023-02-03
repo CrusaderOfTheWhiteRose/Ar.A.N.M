@@ -1,13 +1,13 @@
 <!--Header is this looooong thing at the top-->
-<header class="relative w-screen z-[8] px-[1em] py-[0.72em] flex justify-between shadow-lg def-theme-text def-theme-back">
+<header class="-translate-x-[8.2vmax] hover:-translate-x-[0] lg:-translate-x-[0] absolute lg:relative h-screen w-[10vh] flex-col lg:flex-row lg:w-screen lg:relative lg:w-screen lg:h-auto z-[8] px-[1em] py-[0.72em] flex justify-between shadow-lg def-theme-text def-theme-back duration-1000 transition-all">
 	<!--Left part of the header-->
-	<div class="flex flex-row items-center gap-[0.8em]">
+	<div class="flex flex-col lg:flex-row items-center gap-0 lg:gap-[0.8em]">
 		<!--My inner designer said that rotated text is a great idea to do-->
 		<h1
-			class="text-[3.2em] rotate-180 duration-1000 transition-all text-transparent bg-clip-text bg-gradient-to-r from-[#67e8f9] to-[#f472b6] dark:from-[#80ffdb] dark:to-[#7400b8]">
+			class="w-max-[10vh] h-[10vh] break-all rotate-90 text-[6vh] lg:h-auto lg:text-[3.2em] lg:rotate-180 duration-1000 transition-all text-transparent bg-clip-text bg-gradient-to-r from-[#67e8f9] to-[#f472b6] dark:from-[#80ffdb] dark:to-[#7400b8]">
 			Ar.A.N.M
 		</h1>
-		<nav class="flex flex-row gap-[0.72em]">
+		<nav class="flex flex-col lg:flex-row gap-[0.72em]">
 			<!--This button summons "CreateNewCard" form-->
 			<react-wrapper [component]="newCardButton"></react-wrapper>
 			<!--This button summons "CreateNewReport" form-->
@@ -17,9 +17,9 @@
 		</nav>
 	</div>
 	<!--Right part of the header-->
-	<div class="flex flex-row items-center gap-[0.8em]">
+	<div class="flex flex-col-reverse lg:flex-row items-center gap-[2vh] lg:gap-[0.8em]">
 		<!--Just buttons-->
-		<nav class="flex flex-row gap-[0.72em]">
+		<nav class="flex flex-col lg:flex-row gap-[0.72em]">
 			<!--I must make dark theme by default-->
 			<react-wrapper [component]="switchThemeButton"></react-wrapper>
 			<!--You click and BOOM, the search opens-->
@@ -32,19 +32,19 @@
 
 <ng-template #signInLink>
 	<!--Two cool buttons like bricks-->
-	<nav class="flex flex-col gap-[0.2em]">
+	<nav class="flex flex-col gap-[2vh] lg:gap-[0.2em] mr-[4wv] lg:m-[0px]">
 		<!--I could add LOG IN but i am the boss here-->
-		<button mat-button color="accent">`(*>﹏<*)′</button>
+		<button mat-button color="accent" class="w-[10vw] lg:w-auto overflow-x-clip scale-[1.8] lg:scale-100" (click)="this.changeWizardo()">{{this.misterMagic[this.magicNumber]}}</button>
 		<!--Its literally send you to whats name it is-->
-		<button mat-button color="accent" (click)="this.SendToLogSignIn()">SIGN IN</button>
+		<button mat-button color="accent" class="scale-[1.8] lg:scale-100" (click)="this.AS.CallRoute('LogSignIn')">SIGN IN</button>
 	</nav>
 </ng-template>
 <ng-template #logOutLink>
 		<!--Two cool buttons like bricks-->
-		<nav class="flex flex-col gap-[0.2em]">
+		<nav class="flex flex-col gap-[2vh] lg:gap-[0.2em] mr-[4wv] lg:m-[0px]">
 			<!--User's name-->
-			<button mat-button color="accent">{{this.AS.user.name}}</button>
+			<button mat-button color="accent" class="scale-[2] lg:scale-100">{{this.AS.user.name}}</button>
 			<!--To log out-->
-			<button mat-button color="accent" (click)="this.LogOut()">LOG OUT</button>
+			<button mat-button color="accent" class="scale-[1.8] lg:scale-100" (click)="this.AS.LogOut()">LOG OUT</button>
 		</nav>
 </ng-template>

@@ -6,6 +6,7 @@ import { Router } from "@angular/router"
 })
 export class AppService {
 	constructor(private router: Router) {}
+	//To change route P.S. href do not work sometimes and i need to route with React components
 	CallRoute(navigateTo: string) {
 		switch (navigateTo) {
 			case "Home":
@@ -26,17 +27,23 @@ export class AppService {
 				break
 		}
 	}
+	//User info
 	user = { name: ``, permission: false }
+	//To log out
 	LogOut() {
 		this.user = { name: ``, permission: false }
 		localStorage.removeItem("jwtToken")
+		location.reload()
 	}
+	//If user is logged in and sends him to log in first
 	CheckLoggedIn() {
 		if (this.user.name == ``) {
 			this.CallRoute("LogSignIn")
 		}
 	}
-	Refresh(name: string) {
+	//To refresh user's name and permissions after loggin/signning
+	Refresh(name: string, permission: boolean) {
 		this.user.name = name
+		this.user.permission = permission
 	}
 }

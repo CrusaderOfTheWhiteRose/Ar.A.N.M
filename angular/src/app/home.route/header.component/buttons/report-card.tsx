@@ -2,7 +2,6 @@ import { useInjected } from "@bubblydoo/angular-react"
 import { AnimatePresence, motion } from "framer-motion"
 import * as React from "react"
 import { AppService } from "src/app/app.service"
-import { HomeRouteService } from "../../home-route.component.service"
 
 export default function ReportButton() {
 	//Checks if user is logged in
@@ -36,7 +35,7 @@ export default function ReportButton() {
 	const [checkUser, doCheckUser] = React.useState(false)
 	return (
 		<>
-			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(HomeRouteService).SendToRules() : null) : null}
+			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}
 			<motion.button
 				className='def-svg-button'
 				whileHover={{ scale: 1.2 }}
@@ -44,7 +43,7 @@ export default function ReportButton() {
 				transition={{ type: "spring", stiffness: 100, damping: 8, duration: 10 }}
 				onClick={() => {
 					setFormOpen(true)
-					CheckUser()
+					doCheckUser(true)
 				}}>
 				<svg
 					xmlns='http://www.w3.org/2000/svg'
@@ -64,20 +63,20 @@ export default function ReportButton() {
 				{formOpen == true ? (
 					<motion.div
 						className='def-form-parent'
-						initial={{ opacity: 0, scale: 0.75, y: 400 }}
-						animate={{ opacity: 100, scale: 1, y: -50 }}
-						exit={{ opacity: 0, scale: 0.8, y: 800 }}
+						initial={{ opacity: 0, scale: 0.75, y: -1 * window.innerHeight }}
+						animate={{ opacity: 100, scale: 1, y: 0 }}
+						exit={{ opacity: 0, scale: 0.8, y: -1 * window.innerHeight }}
 						transition={{ type: "spring", stiffness: 100, damping: 8, duration: 10 }}>
 						<div
 							onClick={() => {
 								setFormOpen(false)
 							}}
 							className='h-full w-full'></div>
-						<form className='def-theme def-form'>
+						<form className='def-theme-back def-form'>
 							<div className='gap-[1vh] flex flex-col justify-center items-center'>
-								<label htmlFor='text'>CARD ID</label>
 								<input
 									id='text'
+									placeholder="Card's id"
 									className='input-hover'
 									required
 									maxLength={64}
@@ -89,9 +88,9 @@ export default function ReportButton() {
 								/>
 							</div>
 							<div className='gap-[1vh] flex flex-col justify-center items-center'>
-								<label htmlFor='textarea'>REPORT COMPLAINT</label>
 								<textarea
 									id='textarea'
+									placeholder="Report complaint"
 									className='p-[2vmin] h-[20ch] resize-none input-hover'
 									onChange={(event) => {
 										inputHandler(event, 2)
