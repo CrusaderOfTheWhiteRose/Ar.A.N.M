@@ -13,7 +13,7 @@ import { PolicyRulesRouteModule } from './policy-rules.route/policy-rules-route.
     AppComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
 	PolicyRulesRouteModule,
 	NotFoundRouteModule,
