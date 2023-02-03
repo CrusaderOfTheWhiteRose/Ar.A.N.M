@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { HomeRouteComponent } from './home.route/home-route.component';
-import { LogSignInRouteComponent } from './log-sign-in.route/log-sign-in-route.component';
-import { NotFoundRouteComponent } from './not-found.route/not-found-route.component';
-import { PolicyRulesRouteComponent } from './policy-rules.route/policy-rules-route.component';
+import { NgModule } from "@angular/core"
+import { RouterModule, Routes } from "@angular/router"
+import { HomeRouteComponent } from "./home.route/home-route.component"
+import { LogSignInRouteComponent } from "./log-sign-in.route/log-sign-in-route.component"
+import { NotFoundRouteComponent } from "./not-found.route/not-found-route.component"
+import { PolicyRulesRouteComponent } from "./policy-rules.route/policy-rules-route.component"
 
 const routes: Routes = [
 	{
@@ -26,9 +26,11 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {
-    initialNavigation: 'enabledBlocking'
-})],
-  exports: [RouterModule]
+	imports: [
+		RouterModule.forRoot(routes, {
+			initialNavigation: "enabledBlocking",
+		}),
+	],
+	exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

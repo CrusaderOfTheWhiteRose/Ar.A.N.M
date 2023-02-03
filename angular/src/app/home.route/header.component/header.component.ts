@@ -1,18 +1,18 @@
-import { Component } from '@angular/core';
-import newPostButton from "./buttons/new-card"
-import reportPostButton from "./buttons/report-card"
+import { Component } from "@angular/core"
+import newCardButton from "./buttons/new-card"
+import reportCardButton from "./buttons/report-card"
 import switchStyleButton from "./buttons/switch-style"
 import switchThemeButton from "./buttons/switch-theme"
-import searchBar from "./buttons/search-bar"
+import searchButton from "./buttons/search-button"
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html'
+	selector: "app-header",
+	templateUrl: "./header.component.html",
 })
 export class HeaderComponent {
-	newPostButton = newPostButton
-	reportPostButton = reportPostButton
+	newCardButton = newCardButton
+	reportCardButton = reportCardButton
 	switchStyleButton = switchStyleButton
 	switchThemeButton = switchThemeButton
-	searchBar = searchBar
+	searchButton = searchButton
 }

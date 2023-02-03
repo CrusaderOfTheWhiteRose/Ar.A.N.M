@@ -3,10 +3,18 @@
 @tailwind utilities
 
 @layer components
-  .def-theme
+  .def-theme-text
     @apply transition-colors duration-1000 text-lightColourText dark:text-darkColourText
+  .def-theme-back
+    @apply transition-colors duration-1000 bg-lightColourBack dark:text-darkColourBack
+  .def-theme-front
+    @apply transition-colors duration-1000 bg-lightColour1 dark:text-darkColour1
+  .def-theme-front-front
+    @apply transition-colors duration-1000 bg-lightColour2 dark:text-darkColour2
   .def-svg
-    @apply h-8 w-8 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText
+    @apply h-8 w-8 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour1 hover:animate-spin
+  .small-svg
+    @apply h-6 w-6 transition-colors duration-1000 stroke-lightColourText dark:stroke-darkColourText hover:stroke-lightColour1 dark:hover:stroke-darkColour1
   .def-svg-button
     @apply h-12 w-12 flex justify-center items-center transition-colors duration-1000 rounded-full ring-2 ring-lightColourText dark:ring-darkColourText
 

@@ -1,9 +1,9 @@
-import { Component } from '@angular/core';
+import { Component } from "@angular/core"
 import cardBox from "./card-box"
 
 @Component({
-  selector: 'card-box',
-  templateUrl: './card-box.component.html'
+	selector: "card-box",
+	template: `<react-wrapper [component]="cardBox"></react-wrapper>`,
 })
 export class CardBoxComponent {
 	cardBox = cardBox

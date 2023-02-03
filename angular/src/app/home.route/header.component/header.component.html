@@ -1,14 +1,33 @@
-<!---->
-<header class="def-theme">
-	<h1>Ar.A.N.M</h1>
-	<ul>
-		<react-wrapper [component]="newPostButton"></react-wrapper>
-		<react-wrapper [component]="reportPostButton"></react-wrapper>
-		<react-wrapper [component]="switchStyleButton"></react-wrapper>
-	</ul>
-	<ul>
-		<react-wrapper [component]="switchThemeButton"></react-wrapper>
-		<react-wrapper [component]="searchBar"></react-wrapper>
-	</ul>
-	<div></div>
+<!--Header is this looooong thing at the top-->
+<header class="absolute w-screen z-[8] px-[1em] flex justify-between shadow-md def-theme-text def-theme-back">
+	<!--Left part of the header-->
+	<div class="flex flex-row items-center gap-[0.8em]">
+		<!--My inner designer said that rotated text is a great idea to do-->
+		<h1 class="def-theme-text text-[3.2em] rotate-180">Ar.A.N.M</h1>
+		<nav class="flex flex-row gap-[0.72em]">
+			<!--This button summons "CreateNewCard" form-->
+			<react-wrapper [component]="newCardButton"></react-wrapper>
+			<!--This button summons "CreateNewReport" form-->
+			<react-wrapper [component]="reportCardButton"></react-wrapper>
+			<!--This button switch between "Block" and "List" Card style-->
+			<react-wrapper [component]="switchStyleButton"></react-wrapper>
+		</nav>
+	</div>
+	<!--Right part of the header-->
+	<div class="flex flex-row items-center gap-[0.8em]">
+		<!--Just buttons-->
+		<nav class="flex flex-row gap-[0.72em]">
+			<!--I must make dark theme by default-->
+			<react-wrapper [component]="switchThemeButton"></react-wrapper>
+			<!--You click and BOOM, the search opens-->
+			<react-wrapper [component]="searchButton"></react-wrapper>
+		</nav>
+		<!--Two cool buttons like bricks-->
+		<nav class="flex flex-col gap-[0.72em]">
+			<!--Its literally send you to whats name it is-->
+			<button mat-button color="accent">LOG IN</button>
+			<!--Its literally send you to whats name it is-->
+			<button mat-button color="accent">SIGN IN</button>
+		</nav>
+	</div>
 </header>

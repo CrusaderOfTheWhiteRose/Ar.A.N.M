@@ -6,7 +6,8 @@ import { Component } from "@angular/core"
 	styles: [],
 })
 export class HomeRouteComponent {
+	//This is to hide center for cards without center images
 	hideMissingImage(event: Event) {
-		(event.target as HTMLImageElement).style.display = 'none';
+		(event.target as HTMLImageElement).style.display = "none"
 	}
 }
