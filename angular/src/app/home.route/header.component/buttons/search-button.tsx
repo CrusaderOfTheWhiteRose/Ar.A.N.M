@@ -1,5 +1,13 @@
 import * as React from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, motion, Reorder } from "framer-motion"
+//
+import { useQuery } from "@apollo/client"
+//
+import { FIND_CARD } from "src/app/API/cards/find.cards"
+import Card from "../../card-box.component/card/card"
+
+//This is what my clidrens will get - nothing, until its runs
+export const CardContext = React.createContext<any>(undefined)
 
 export default function SearchButton() {
 	//Controls search tab
@@ -31,7 +39,8 @@ export default function SearchButton() {
 				break
 		}
 	}
-
+	//It will ask for data every time its renders
+	const { data } = useQuery(FIND_CARD, { variables: { id, author, upper, bottom } })
 	return (
 		<>
 			<div className='flex items-center'>
@@ -127,7 +136,17 @@ export default function SearchButton() {
 								</div>
 							</div>
 							<div className='p-[0.5em]'>
-								<div className='flex flex-wrap justify-center gap-12 overflow-x-clip'></div>
+								<div className='gap-[4vmax] lg:p-12 lg:gap-12 w-screen flex flex-wrap-reverse'>
+									<Reorder.Group axis='y' values={data} onReorder={data}>
+										{data.allCard.map((card: any) => (
+											<Reorder.Item key={card.id} value={card}>
+												<CardContext.Provider value={card}>
+													<Card key={card.id} />
+												</CardContext.Provider>
+											</Reorder.Item>
+										))}
+									</Reorder.Group>
+								</div>
 							</div>
 						</div>
 					</motion.div>

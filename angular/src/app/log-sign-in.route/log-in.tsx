@@ -3,6 +3,7 @@ import { useInjected } from "@bubblydoo/angular-react"
 import { motion } from "framer-motion"
 import * as React from "react"
 import { AppService } from "../app.service"
+import { LOGIN_USER } from "../API/users/login.users"
 
 export function LogInComponent() {
 	//Variables to send
@@ -27,8 +28,25 @@ export function LogInComponent() {
 	const [passwordInvicible, setPasswordInvicible] = React.useState(true)
 	//To rerender component on change, then send user to the place
 	const [RouteCall, makeRouteCall] = React.useState("")
+	//Data that will be delivered to the page
+	const { data, error } = useQuery(LOGIN_USER, { variables: { email, password } })
+	//If there is no errors
+	if (error == undefined) {
+		useInjected(AppService).Refresh(data.logIn.name, data.logIn.permission)
+		if (rememberMe != false) {
+			useInjected(AppService).ResponseToken(email)
+		}
+	}
 	//Send user to home page
 	useInjected(AppService).CallRoute(RouteCall)
+	//Just what to do on submit, i do not like the HTML one, so will it be so
+	function onSubmit() {
+		event!.preventDefault()
+		if (error) {
+			return
+		}
+		makeRouteCall("Home")
+	}
 	return (
 		<form className='lg:mt-6 lg:px-[0.5em] lg:py-[2em] shadow-none lg:shadow-md relative flex flex-col gap-[4vh]'>
 			<div className='flex flex-col justify-center align-middle items-center'>
@@ -126,14 +144,7 @@ export function LogInComponent() {
 				</div>
 				<motion.button
 					onClick={() => {
-						event!.preventDefault()
-						/*
-					signIn()
-					if (error) {
-						return
-					}
-					*/
-						makeRouteCall("Home")
+						onSubmit()
 					}}
 					className='px-[2vm] py-[2vh] lg:px-[1em] lg:py-[0.5em] w-[80vw] lg:w-[14em] def-theme-text button-hover'
 					whileTap={{ scale: 0.8 }}

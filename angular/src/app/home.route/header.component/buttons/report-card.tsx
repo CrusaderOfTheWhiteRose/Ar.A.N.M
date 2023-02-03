@@ -1,7 +1,11 @@
-import { useInjected } from "@bubblydoo/angular-react"
-import { AnimatePresence, motion } from "framer-motion"
 import * as React from "react"
+import { AnimatePresence, motion } from "framer-motion"
+//
+import { useInjected } from "@bubblydoo/angular-react"
+import { useMutation } from "@apollo/client"
+//
 import { AppService } from "src/app/app.service"
+import { REPORT_CARD } from "src/app/API/cards/report.cards"
 
 export default function ReportButton() {
 	//Checks if user is logged in
@@ -33,6 +37,8 @@ export default function ReportButton() {
 	}
 	//To check is user logged in P.S. Its looks rly weird but its sure works
 	const [checkUser, doCheckUser] = React.useState(false)
+	//Report card function (actually its really weird hook)
+	const [reportCard] = useMutation(REPORT_CARD, { variables: { id, report } })
 	return (
 		<>
 			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}

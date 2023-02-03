@@ -1,15 +1,17 @@
 import { Component } from "@angular/core"
+import * as React from "react"
+//
 import { AngularReactService } from "@bubblydoo/angular-react"
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client"
-import * as React from "react"
-import { HomeRouteService } from "./home.route/home-route.component.service"
+//
+import { AppService } from "./app.service"
 
 @Component({
 	selector: "app-root",
 	template: `<router-outlet></router-outlet>`,
 })
 export class AppComponent {
-	constructor(private HRCS: HomeRouteService, angularReact: AngularReactService) {
+	constructor(private AS: AppService, angularReact: AngularReactService) {
 		const cache = new InMemoryCache({
 			typePolicies: {
 				Query: {
@@ -24,7 +26,7 @@ export class AppComponent {
 			},
 		})
 		const client = new ApolloClient({
-			uri: "http://localhost:5000/graphql",
+			uri: this.AS.uri,
 			cache,
 		})
 		angularReact.wrappers.push(({ children }) => React.createElement(ApolloProvider, { client, children }))

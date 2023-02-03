@@ -1,3 +1,4 @@
+import { HttpClient, HttpHeaders } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Router } from "@angular/router"
 
@@ -5,7 +6,7 @@ import { Router } from "@angular/router"
 	providedIn: "root",
 })
 export class AppService {
-	constructor(private router: Router) {}
+	constructor(private router: Router, private http: HttpClient) {}
 	//To change route P.S. href do not work sometimes and i need to route with React components
 	CallRoute(navigateTo: string) {
 		switch (navigateTo) {
@@ -28,11 +29,11 @@ export class AppService {
 		}
 	}
 	//User info
-	user = { name: ``, permission: false }
+	user = { name: `Blobens`, permission: true }
 	//To log out
 	LogOut() {
 		this.user = { name: ``, permission: false }
-		localStorage.removeItem("jwtToken")
+		this.DeleteToken()
 		location.reload()
 	}
 	//If user is logged in and sends him to log in first
@@ -45,5 +46,36 @@ export class AppService {
 	Refresh(name: string, permission: boolean) {
 		this.user.name = name
 		this.user.permission = permission
+	}
+	//Server url
+	uri = "http://localhost:5000"
+	//Triggers LogOut function on server, which will make your token unuseble
+	DeleteToken() {
+		this.http.delete(this.uri + "/JWT/LogOut", { headers: new HttpHeaders({ Authorization: window.localStorage["jwtToken"] }) })
+		localStorage.removeItem("jwtToken")
+	}
+	//Ask for information if your token match needed options
+	RequestToken() {
+		this.http
+			.get(this.uri + "/JWT/Verify", { headers: new HttpHeaders({ Authorization: "Bearer " + window.localStorage["jwtToken"] }) })
+			.subscribe(
+				(res: any) => {
+					this.Refresh(res.name, res.permission)
+				},
+				(err: any) => {
+					console.log(err)
+				}
+			)
+	}
+	//Trigger that to create a token
+	ResponseToken(email: string) {
+		this.http.post(this.uri + "/JWT/LogIn", { email }).subscribe(
+			(res: any) => {
+				window.localStorage["jwtToken"] = res.TheToken
+			},
+			(err) => {
+				console.log(err)
+			}
+		)
 	}
 }

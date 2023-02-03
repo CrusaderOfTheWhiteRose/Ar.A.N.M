@@ -2,9 +2,7 @@ import { Injectable, Inject } from "@angular/core"
 import { AppService } from "../app.service"
 import { HomeRouteModule } from "./home-route.component.module"
 
-@Injectable({
-	providedIn: HomeRouteModule,
-})
+@Injectable()
 export class HomeRouteService {
 	constructor(@Inject(AppService) private AS: AppService) {}
 	//If user did not check rules or is not logged in then show `the annoy box`

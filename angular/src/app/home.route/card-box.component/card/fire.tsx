@@ -1,8 +1,13 @@
 import * as React from "react"
 import { motion } from "framer-motion"
-import { CardContext } from "../card-box"
+//
+import { useMutation } from "@apollo/client"
 import { useInjected } from "@bubblydoo/angular-react"
+//
 import { AppService } from "src/app/app.service"
+import { CardContext } from "../card-box"
+//
+import { FIRE_CARD } from "src/app/API/cards/fire.cards"
 
 export default function Fire() {
 	//Take fire number from context
@@ -11,6 +16,11 @@ export default function Fire() {
 	const [fire, moreFire] = React.useState(false)
 	//To check is user logged in P.S. Its looks rly weird but its sure works
 	const [checkUser, doCheckUser] = React.useState(false)
+	//Declate id and name
+	const id = cardInfo.id
+	const name = useInjected(AppService).user.name
+	//Its to fire the card
+	const [fireCard] = useMutation(FIRE_CARD, { variables: { id, fire, name } })
 	return (
 		<>
 			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}
@@ -19,6 +29,7 @@ export default function Fire() {
 					onClick={() => {
 						moreFire(!fire)
 						doCheckUser(true)
+						fireCard()
 					}}>
 					{fire == true ? (
 						<motion.svg

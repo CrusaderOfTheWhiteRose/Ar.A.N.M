@@ -1,8 +1,11 @@
 import * as React from "react"
 import { AnimatePresence, motion } from "framer-motion"
+//
 import { useInjected } from "@bubblydoo/angular-react"
+import { useMutation } from "@apollo/client"
+//
 import { AppService } from "src/app/app.service"
-import { HomeRouteService } from "../../home-route.component.service"
+import { CREATE_CARD } from "src/app/API/cards/create.cards"
 
 export default function NewCardButton() {
 	//Init variables which will be used to create card
@@ -48,10 +51,15 @@ export default function NewCardButton() {
 	//Just on submit, its makes code more organized in my opinion
 	function onSubmit() {
 		event!.preventDefault()
+		createCard()
 		setFormOpen(!formOpen)
 	}
 	//To check is user logged in P.S. Its looks rly weird but its sure works
 	const [checkUser, doCheckUser] = React.useState(false)
+	//Create card function
+	const [createCard] = useMutation(CREATE_CARD, {
+		variables: {  author, time, upper, center, bottom  },
+	})
 	return (
 		<>
 			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}
