@@ -25,16 +25,12 @@ export default function CardBox() {
 			</div>
 		)
 	return (
-		<main className='gap-[4vmax] lg:p-12 lg:gap-12 w-screen flex flex-wrap-reverse'>
-			<Reorder.Group axis='y' values={data} onReorder={data}>
-				{data.allCard.map((card: any) => (
-					<Reorder.Item key={card.id} value={card}>
-						<CardContext.Provider value={card}>
-							<Card key={card.id} />
-						</CardContext.Provider>
-					</Reorder.Item>
-				))}
-			</Reorder.Group>
+		<main className='gap-[4vmax] p-[4vmax] lg:p-12 lg:gap-12 w-screen flex flex-wrap-reverse'>
+			{data.allCard.map((card: any) => (
+				<CardContext.Provider key={card.id} value={card}>
+					<Card />
+				</CardContext.Provider>
+			))}
 		</main>
 	)
 }

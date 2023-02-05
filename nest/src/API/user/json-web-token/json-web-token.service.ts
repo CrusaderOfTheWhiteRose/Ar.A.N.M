@@ -25,19 +25,10 @@ export class JsonWebTokenService {
 		if (this.ForbittenTokens.includes(TheToken) || TheToken == null) {
 			return null
 		}
-		//Verify it for damage
-		this.jwtService
-			.verify(TheToken)
-			//Then sets the request user as user email which token contains
-			.then((User: any) => {
-				req.User = User
-			})
-			//If it was damaged then retun null
-			.catch((err) => {
-				return null
-			})
+		//Verify it for damage and give decoded values
+		let email = this.jwtService.verify(TheToken)
 		//Takes the email to find
-		const email = req.User.email
+		email = email.email
 		//Find user with such email (do not use actual db but its clone)
 		const theUser = await this.userModel.findOne({ email }).clone()
 		//Sets variables to send back
@@ -47,8 +38,8 @@ export class JsonWebTokenService {
 		res.json({ name: theUserName, permission: theUserPermission })
 	}
 	//Sends this token to forbitten until it expires
-	JWTLogOut(req: any, res: any) {
-		this.ForbittenTokens.push(req.body.TheToken)
+	JWTLogOut(header: any) {
+		this.ForbittenTokens.push(header["tokentodelete"])
 		return null
 	}
 }

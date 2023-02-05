@@ -29,7 +29,7 @@ export class AppService {
 		}
 	}
 	//User info
-	user = { name: `Blobens`, permission: true }
+	user = { name: ``, permission: false }
 	//To log out
 	LogOut() {
 		this.user = { name: ``, permission: false }
@@ -51,13 +51,26 @@ export class AppService {
 	uri = "http://localhost:5000"
 	//Triggers LogOut function on server, which will make your token unuseble
 	DeleteToken() {
-		this.http.delete(this.uri + "/JWT/LogOut", { headers: new HttpHeaders({ Authorization: window.localStorage["jwtToken"] }) })
+		this.http
+			.delete(this.uri + "/JWT/LogOut", {
+				headers: ({ TokenToDelete: "" + window.localStorage["jwtToken"] }),
+			})
+			.subscribe(
+				(res: any) => {
+					this.Refresh(res.name, res.permission)
+				},
+				(err: any) => {
+					console.log(err)
+				}
+			)
 		localStorage.removeItem("jwtToken")
 	}
 	//Ask for information if your token match needed options
 	RequestToken() {
 		this.http
-			.get(this.uri + "/JWT/Verify", { headers: new HttpHeaders({ Authorization: "Bearer " + window.localStorage["jwtToken"] }) })
+			.get(this.uri + "/JWT/Verify", {
+				headers: new HttpHeaders({ Authorization: "Bearer " + window.localStorage["jwtToken"] }),
+			})
 			.subscribe(
 				(res: any) => {
 					this.Refresh(res.name, res.permission)
@@ -71,7 +84,7 @@ export class AppService {
 	ResponseToken(email: string) {
 		this.http.post(this.uri + "/JWT/LogIn", { email }).subscribe(
 			(res: any) => {
-				window.localStorage["jwtToken"] = res.TheToken
+				window.localStorage.setItem("jwtToken", res.TheToken)
 			},
 			(err) => {
 				console.log(err)

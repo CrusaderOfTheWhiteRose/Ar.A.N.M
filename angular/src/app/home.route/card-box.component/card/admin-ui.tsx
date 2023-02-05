@@ -1,5 +1,5 @@
 import * as React from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { motion } from "framer-motion"
 //
 import { useMutation } from "@apollo/client"
 //
@@ -21,17 +21,14 @@ export default function AdminUI() {
 		variables: { id },
 	})
 	//Update variables
-	let upper = "",
-		center: any,
-		bottom = ""
-	//Functions to update card
-	//To rerender image
-	const [image, setImage] = React.useState(undefined)
+	const [upper, setUpper] = React.useState<string>("")
+	const [center, setCenter] = React.useState<string>("")
+	const [bottom, setBottom] = React.useState<string>("")
 	//Handles inputs
 	function inputHandler(event: any, inputNum: number) {
 		switch (inputNum) {
 			case 1:
-				upper = event.target.value
+				setUpper(event.target.value)
 				break
 			case 2:
 				//Reads the file
@@ -41,14 +38,13 @@ export default function AdminUI() {
 				const reader = new FileReader()
 				//When reading is over
 				reader.onloadend = () => {
-					center = reader.result as string
-					setImage(center)
+					setCenter(reader.result as string)
 				}
 				//Start the reading
 				reader.readAsDataURL(file)
 				break
 			case 3:
-				bottom = event.target.value
+				setBottom(event.target.value)
 				break
 			default:
 				alert("How the hick you did it?")
@@ -58,7 +54,7 @@ export default function AdminUI() {
 	function onSubmit() {
 		event!.preventDefault()
 		updateCard()
-		setFormUpdate(!formUpdate)
+		setFormUpdate(false)
 	}
 	//To update the card
 	const [updateCard] = useMutation(UPDATE_CARD, {
@@ -66,12 +62,12 @@ export default function AdminUI() {
 	})
 	return (
 		<>
-			<div className='absolute z-[2] flex flex-col -translate-x-[1.72em]'>
+			<div className='absolute z-[2] shadow-md flex justify-center items-center flex-col lg:flex-row translate-y-[6vh] lg:translate-x-[2em] lg:translate-y-[0px]'>
 				<motion.button
 					whileHover={{ scale: 1.2 }}
 					whileTap={{ scale: 0.8 }}
 					onClick={() => {
-						setFormDelete(true)
+						setFormUpdate(true)
 					}}>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
@@ -88,11 +84,10 @@ export default function AdminUI() {
 					</svg>
 				</motion.button>
 				<motion.button
-					className='flex transition-colors duration-1000 bg-white dark:bg-slate-800'
 					whileHover={{ scale: 1.2 }}
 					whileTap={{ scale: 0.8 }}
 					onClick={() => {
-						setFormUpdate(true)
+						setFormDelete(true)
 					}}>
 					<svg
 						xmlns='http://www.w3.org/2000/svg'
@@ -109,94 +104,89 @@ export default function AdminUI() {
 					</svg>
 				</motion.button>
 			</div>
-			<AnimatePresence>
-				{formUpdate == true ? (
-					<motion.div
-						className='def-form-parent fixed'
-						initial={{ opacity: 0, scale: 0.75, y: -1 * window.innerHeight }}
-						animate={{ opacity: 100, scale: 1, y: 0 }}
-						exit={{ opacity: 0, scale: 0.8, y: -1 * window.innerHeight }}
-						transition={{ type: "spring", stiffness: 100, damping: 8, duration: 10 }}>
-						<div
-							onClick={() => {
-								setFormUpdate(false)
-							}}
-							className='h-full w-full'></div>
-						<form className='def-form def-theme-back'>
-							<div className='gap-0 lg:gap-[1em] flex flex-col justify-center items-center def-theme-back'>
-								<input
-									id='text'
-									className='w-[20ch] input-hover'
-									placeholder='UpperText'
-									type='text'
-									onChange={() => inputHandler(event, 1)}
+			{formUpdate == true ? (
+				<div className='absolute w-full h-full bg-transparent left-0 top-0 flex justify-center items-center def-theme-text'>
+					<div
+						onClick={() => {
+							setFormUpdate(false)
+						}}
+						className='h-screen w-screen'></div>
+					<form className='def-form def-theme-back'>
+						<div className='gap-0 lg:gap-[1em] flex flex-col justify-center items-center def-theme-back'>
+							<input
+								id='text'
+								className='w-[20ch] input-hover'
+								placeholder='UpperText'
+								type='text'
+								onChange={() => inputHandler(event, 1)}
+							/>
+						</div>
+						<div className='gap-[1em] flex flex-col justify-center items-center'>
+							<input
+								type='file'
+								id='file'
+								className='hidden'
+								accept='image/*'
+								multiple={false}
+								onChange={() => inputHandler(event, 2)}
+							/>
+							<label htmlFor='file'>
+								<img
+									src={center}
+									id='img'
+									className='w-[20vh] h-[20vh] object-cover rounded-2xl input-hover content(`Image`)'
 								/>
-							</div>
-							<div className='gap-[1em] flex flex-col justify-center items-center'>
-								<input
-									type='file'
-									id='file'
-									className='hidden'
-									accept='image/*'
-									multiple={false}
-									onChange={() => inputHandler(event, 2)}
-								/>
-								<label htmlFor='file'>
-									<img
-										src={image}
-										id='img'
-										className='w-[20vh] h-[20vh] object-cover rounded-2xl input-hover content(`Image`)'
-									/>
-								</label>
-							</div>
-							<div className='gap-[1em] flex flex-col justify-center items-center '>
-								<textarea
-									id='textarea'
-									placeholder='BottomText'
-									className='p-[1em] w-[20ch] h-[20vh] resize-none input-hover'
-									onChange={() => inputHandler(event, 3)}></textarea>
-							</div>
-							<motion.button
-								onClick={() => {
-									onSubmit()
-								}}
-								className='mt-[1em] px-[2em] py-[0.75em] w-[16ch] button-hover'
-								whileTap={{ scale: 0.8 }}
-								whileHover={{ scale: 1.2 }}
-								transition={{ type: "spring", stiffness: 400, damping: 10 }}>
-								SUBMIT
-							</motion.button>
-						</form>
-					</motion.div>
-				) : null}
-				{formDelete == true ? (
-					<div className='absolute w-full h-full bg-transparent left-0 top-0 flex justify-center items-center'>
-						<div
+							</label>
+						</div>
+						<div className='gap-[1em] flex flex-col justify-center items-center '>
+							<textarea
+								id='textarea'
+								placeholder='BottomText'
+								className='p-[1em] w-[20ch] h-[20vh] resize-none input-hover'
+								onChange={() => inputHandler(event, 3)}></textarea>
+						</div>
+						<motion.button
 							onClick={() => {
-								setFormDelete(false)
+								onSubmit()
 							}}
-							className='h-full w-full'></div>
-						<div className='def-theme def-form absolute'>
+							className='mt-[1em] px-[2em] py-[0.75em] w-[16ch] button-hover tex'
+							whileTap={{ scale: 0.8 }}
+							whileHover={{ scale: 1.2 }}
+							transition={{ type: "spring", stiffness: 400, damping: 10 }}>
+							SUBMIT
+						</motion.button>
+					</form>
+				</div>
+			) : null}
+			{formDelete == true ? (
+				<div className='absolute w-full h-full bg-transparent left-0 top-0 flex justify-center items-center def-theme-text'>
+					<div
+						onClick={() => {
+							setFormDelete(false)
+						}}
+						className='h-screen w-screen'></div>
+					<div className='def-theme-back def-form absolute'>
+						<b>
 							<div>Are You Sure?</div>
-							<div>Delete Post: {id}?</div>
-							<div className='flex flex-row gap-4'>
-								<button
-									onClick={() => {
-										setFormDelete(false)
-									}}>
-									No
-								</button>
-								<button
-									onClick={() => {
-										deleteCard()
-									}}>
-									Yep
-								</button>
-							</div>
+						</b>
+						<div>Delete Post: {id}?</div>
+						<div className='flex flex-row gap-4'>
+							<button
+								onClick={() => {
+									setFormDelete(false)
+								}}>
+								No
+							</button>
+							<button
+								onClick={() => {
+									deleteCard()
+								}}>
+								Yep
+							</button>
 						</div>
 					</div>
-				) : null}
-			</AnimatePresence>
+				</div>
+			) : null}
 		</>
 	)
 }

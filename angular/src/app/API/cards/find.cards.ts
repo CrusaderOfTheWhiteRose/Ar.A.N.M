@@ -10,6 +10,7 @@ export const FIND_CARD = gql`
 			center
 			bottom
 			fire
+			arsons
 		}
 	}
 `

@@ -12,6 +12,7 @@ export class PolicyAlertComponent {
 	}
 	ShowPolicyRules = true
 	ngOnInit() {
+		this.HRS.ShowRulesAlert()
 		this.ShowPolicyRules = this.HRS.ShowPolicyRules
 	}
 }

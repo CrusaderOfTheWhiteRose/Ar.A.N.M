@@ -10,26 +10,34 @@ import { CardContext } from "../card-box"
 import { FIRE_CARD } from "src/app/API/cards/fire.cards"
 
 export default function Fire() {
-	//Take fire number from context
+	//Take data from context
 	const cardInfo: any = React.useContext(CardContext)
-	//Is fired?
-	const [fire, moreFire] = React.useState(false)
 	//To check is user logged in P.S. Its looks rly weird but its sure works
 	const [checkUser, doCheckUser] = React.useState(false)
-	//Declate id and name
+	//Declate id, name and fire number
 	const id = cardInfo.id
+	const [fireNumber, setFireNumber] = React.useState(cardInfo.fire)
 	const name = useInjected(AppService).user.name
+	//Is fired?
+	const [fire, setFire] = React.useState(name != "" ? cardInfo.arsons.includes(name) : false)
 	//Its to fire the card
 	const [fireCard] = useMutation(FIRE_CARD, { variables: { id, fire, name } })
 	return (
 		<>
-			{checkUser == true ? (useInjected(AppService).user.name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}
+			{checkUser == true ? (name == "" ? useInjected(AppService).CallRoute("LogSignIn") : null) : null}
 			<div className='flex justify-center items-center flex-col-reverse absolute right-0 lg:left-0 z-[2] w-[6vh] h-[12vh] lg:w-8 lg:h-14 shadow-md -translate-y-[12vh] lg:-translate-y-14'>
 				<button
 					onClick={() => {
-						moreFire(!fire)
+						const s = !fire
+						setFire(s)
 						doCheckUser(true)
 						fireCard()
+						if(s == true) {
+							setFireNumber(fireNumber + 1)
+						}
+						if(s == false) {
+							setFireNumber(fireNumber - 1)
+						}
 					}}>
 					{fire == true ? (
 						<motion.svg
@@ -77,7 +85,7 @@ export default function Fire() {
 						</motion.svg>
 					) : null}
 				</button>
-				<div className='def-theme-text'>{fire == true ? cardInfo.fire + 1 : cardInfo.fire}</div>
+				<div className='def-theme-text'>{fireNumber}</div>
 			</div>
 		</>
 	)

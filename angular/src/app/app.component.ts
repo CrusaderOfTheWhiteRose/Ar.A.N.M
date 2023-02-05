@@ -26,14 +26,21 @@ export class AppComponent {
 			},
 		})
 		const client = new ApolloClient({
-			uri: this.AS.uri,
+			uri: this.AS.uri + "/graphql",
 			cache,
 		})
 		angularReact.wrappers.push(({ children }) => React.createElement(ApolloProvider, { client, children }))
 	}
 	//I moved function outside to make it look better
 	ngOnInit() {
+		this.VerifyToken()
 		this.VerifyTheme()
+	}
+	//Ask for token's info
+	VerifyToken() {
+		if (localStorage.getItem("jwtToken") != undefined) {
+			this.AS.RequestToken()
+		}
 	}
 	//Look at cookies and if user have "theme" cookie then sets theme to its value or to user's prefered browser theme
 	VerifyTheme() {

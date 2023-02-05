@@ -11,21 +11,21 @@ export default function NewCardButton() {
 	//Init variables which will be used to create card
 	//eslint-disable-next-line prefer-const
 	let time = "",
-		author = "",
-		upper = "",
-		center: any,
-		bottom = ""
+		author = ""
+	const [upper, setUpper] = React.useState<string>("")
+	const [center, setCenter] = React.useState<string>()
+	const [bottom, setBottom] = React.useState<string>("")
+	//Sets time
+	time = new Date().getHours() + ":" + new Date().getMinutes()
 	//Sets author name
 	author = useInjected(AppService).user.name
 	//Opens/Closes form to create card
 	const [formOpen, setFormOpen] = React.useState(false)
-	//To rerender image
-	const [image, setImage] = React.useState(undefined)
 	//Handles inputs
 	function inputHandler(event: any, inputNum: number) {
 		switch (inputNum) {
 			case 1:
-				upper = event.target.value
+				setUpper(event.target.value)
 				break
 			case 2:
 				//Reads the file
@@ -35,14 +35,13 @@ export default function NewCardButton() {
 				const reader = new FileReader()
 				//When reading is over
 				reader.onloadend = () => {
-					center = reader.result as string
-					setImage(center)
+					setCenter(reader.result as string)
 				}
 				//Start the reading
 				reader.readAsDataURL(file)
 				break
 			case 3:
-				bottom = event.target.value
+				setBottom(event.target.value)
 				break
 			default:
 				alert("How the hick you did it?")
@@ -52,13 +51,13 @@ export default function NewCardButton() {
 	function onSubmit() {
 		event!.preventDefault()
 		createCard()
-		setFormOpen(!formOpen)
+		setFormOpen(false)
 	}
 	//To check is user logged in P.S. Its looks rly weird but its sure works
 	const [checkUser, doCheckUser] = React.useState(false)
 	//Create card function
 	const [createCard] = useMutation(CREATE_CARD, {
-		variables: {  author, time, upper, center, bottom  },
+		variables: { author, time, upper, center, bottom },
 	})
 	return (
 		<>
@@ -104,7 +103,7 @@ export default function NewCardButton() {
 								<input
 									id='text'
 									className='w-[20ch] input-hover'
-									placeholder="UpperText"
+									placeholder='UpperText'
 									type='text'
 									onChange={() => inputHandler(event, 1)}
 								/>
@@ -119,13 +118,17 @@ export default function NewCardButton() {
 									onChange={() => inputHandler(event, 2)}
 								/>
 								<label htmlFor='file'>
-									<img src={image} id='img' className='w-[20vh] h-[20vh] object-cover rounded-2xl input-hover content(`Image`)' />
+									<img
+										src={center}
+										id='img'
+										className='w-[20vh] h-[20vh] object-cover rounded-2xl input-hover content(`Image`)'
+									/>
 								</label>
 							</div>
 							<div className='gap-[1em] flex flex-col justify-center items-center '>
 								<textarea
 									id='textarea'
-									placeholder="BottomText"
+									placeholder='BottomText'
 									className='p-[1em] w-[20ch] h-[20vh] resize-none input-hover'
 									onChange={() => inputHandler(event, 3)}></textarea>
 							</div>

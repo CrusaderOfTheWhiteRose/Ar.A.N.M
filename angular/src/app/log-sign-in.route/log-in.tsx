@@ -7,20 +7,22 @@ import { LOGIN_USER } from "../API/users/login.users"
 
 export function LogInComponent() {
 	//Variables to send
-	let email = "",
-		password = "",
-		rememberMe = false
+	const [rememberMe, setRememberMe] = React.useState(false)
+	const [email, setEmail] = React.useState("")
+	const [password, setPassword] = React.useState("")
+	//Data that will be delivered to the page
+	const { data, error } = useQuery(LOGIN_USER, { variables: { email, password } })
 	//All the inputs in one place is good practice
 	function inputHandler(event: any, inputNum: number) {
 		switch (inputNum) {
 			case 2:
-				email = event.target.value
+				setEmail(event.target.value)
 				break
 			case 3:
-				password = event.target.value
+				setPassword(event.target.value)
 				break
 			case 4:
-				rememberMe = event.target.value
+				setRememberMe(!rememberMe)
 				break
 		}
 	}
@@ -28,13 +30,14 @@ export function LogInComponent() {
 	const [passwordInvicible, setPasswordInvicible] = React.useState(true)
 	//To rerender component on change, then send user to the place
 	const [RouteCall, makeRouteCall] = React.useState("")
-	//Data that will be delivered to the page
-	const { data, error } = useQuery(LOGIN_USER, { variables: { email, password } })
 	//If there is no errors
 	if (error == undefined) {
-		useInjected(AppService).Refresh(data.logIn.name, data.logIn.permission)
-		if (rememberMe != false) {
-			useInjected(AppService).ResponseToken(email)
+		//So nobody will pass without pressing Submit
+		if (RouteCall == "Home") {
+			useInjected(AppService).Refresh(data.logIn.name, data.logIn.permission)
+			if (rememberMe != false) {
+				useInjected(AppService).ResponseToken(email)
+			}
 		}
 	}
 	//Send user to home page
@@ -43,6 +46,7 @@ export function LogInComponent() {
 	function onSubmit() {
 		event!.preventDefault()
 		if (error) {
+			alert("Password is not that correct. I made special eye-button for this")
 			return
 		}
 		makeRouteCall("Home")
@@ -128,7 +132,7 @@ export function LogInComponent() {
 					</button>
 				</div>
 			</div>
-			<div className='flex justify-center items-center flex-col gap-[2vh] lg:gap-0'>
+			<div className='flex justify-center items-center flex-col gap-[2vh] lg:gap-4'>
 				<div className='flex flex-row items-center'>
 					<input
 						id='checkbox'

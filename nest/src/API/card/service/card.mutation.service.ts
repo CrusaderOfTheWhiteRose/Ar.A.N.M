@@ -50,9 +50,9 @@ export class CardMutationService {
 		//Take the number from card
 		const CorrectFireNumber = (await this.cardModel.findById(id)).fire
 		//If user "likes" it then add number and add him to list of ppl who liked this post, so they could not like it second time
-		if (fire == true) await this.cardModel.findByIdAndUpdate(id, { fire: CorrectFireNumber + 1 }, { $push: { arsons: name } })
+		if (fire == false) await this.cardModel.findByIdAndUpdate(id, { fire: CorrectFireNumber + 1, $push: { arsons: name } })
 		//Revert it back
-		else if (fire == false) await this.cardModel.findByIdAndUpdate(id, { fire: CorrectFireNumber - 1 }, { $pull: { arsons: name } })
+		else if (fire == true) await this.cardModel.findByIdAndUpdate(id, { fire: CorrectFireNumber - 1, $pull: { arsons: name } })
 		//Return that its done
 		return true
 	}

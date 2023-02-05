@@ -19,7 +19,6 @@ export class JsonWebTokenStrategy extends PassportStrategy(Strategy) {
 	}
 
 	async ReMakeToken(Token: any) {
-		//Write it down just for smt
 		console.log(Token)
 		//Sign it again, so user do not need to login again
 		const TheToken = this.jwtService.sign(Token)

@@ -14,11 +14,11 @@ export default function Card() {
 	return (
 		<>
 			{localStorage.getItem("style") == "block" || localStorage.getItem("style") == undefined ? (
-				<div className='relative inline-block' ref={dragZone}>
+				<div className='relative' ref={dragZone}>
 					<motion.div drag dragConstraints={dragZone}>
 						{useInjected(AppService).user.permission == true ? <AdminUI /> : null}
 						<button
-							className='absolute right-0 lg:left-0 z-[2] h-[6vh] lg:h-8 w-[6vh] lg:w-8 shadow-md flex justify-center items-center'
+							className='absolute left-0 z-[2] h-8 w-8 shadow-md flex justify-center items-center'
 							onClick={() => {
 								alert(`Card id: ${cardInfo.id}`)
 							}}>
@@ -39,16 +39,16 @@ export default function Card() {
 							</motion.svg>
 						</button>
 						<motion.div
-							className='shadow-md w-screen pt-[1vmax] h-[22vh] lg:h-auto lg:max-w-[20rem] lg:p-4 break-all'
+							className='shadow-md h-auto max-w-[20rem] p-4 break-keep'
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}>
 							<div className='flex flex-row justify-around gap-12'>
 								<cite className='font-thin text-[2.8vmax] lg:text-lg translate-x-8 def-theme-text'>{cardInfo.author}</cite>
-								<time className='antialiased font-thin text-[2vmax] lg:text-sm def-theme-text'>{cardInfo.time}</time>
+								<time className='antialiased font-ultraThin text-[2vmax] lg:text-sm def-theme-text'>{cardInfo.time}</time>
 							</div>
 							<div className='flex align-middle justify-center items-center flex-col'>
-								<article className='def-theme-text lg:text-4xlg font-bold'>{cardInfo.upper}</article>
-								{cardInfo.center != null ? null : (
+								<b><article className='def-theme-text lg:text-4xlg font-official'>{cardInfo.upper}</article></b>
+								{cardInfo.center == null ? null : (
 									<img
 										src={cardInfo.center}
 										alt='Card`s Center Image'
@@ -56,7 +56,7 @@ export default function Card() {
 										onDragStart={(event) => event.preventDefault()}
 									/>
 								)}
-								<article className='def-theme-text lg:text-2xlg'>{cardInfo.bottom}</article>
+								<article className='font-official def-theme-text lg:text-2xlg'>{cardInfo.bottom}</article>
 							</div>
 						</motion.div>
 						<Fire />
@@ -67,7 +67,7 @@ export default function Card() {
 					<motion.div drag dragConstraints={dragZone}>
 						{useInjected(AppService).user.permission == true ? <AdminUI /> : null}
 						<button
-							className='absolute z-[2] w-8 h-8 shadow-md flex justify-center items-center'
+							className='absolute z-[2] shadow-md flex justify-center items-center'
 							onClick={() => {
 								alert(`Card id: ${cardInfo.id}`)
 							}}>
@@ -87,28 +87,29 @@ export default function Card() {
 								/>
 							</motion.svg>
 						</button>
-						<motion.div
-							className='shadow-md max-w-[20rem] p-4 break-all'
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}>
-							<div className='flex flex-row justify-between items-center gap-4 max-w-[42rem]'>
-								<div className='relative top-0 flex flex-col break-keep justify-center items-center'>
-									<cite className='font-thin text-md def-theme-text max-w-[4em] overflow-x-clip duration-1000 hover:max-w-[12em]'>
-										{cardInfo.author}
-									</cite>
-									<time className='antialiased font-thin text-sm def-theme-text'>{cardInfo.time}</time>
-								</div>
-								<div className='flex align-middle justify-center items-center flex-col'>
-									<article className='text-4xlg font-bold def-theme-text max-w-[14rem]'>{cardInfo.upper}</article>
-									<article className='text-2xlg def-theme-text max-w-[18rem]'>{cardInfo.bottom}</article>
-									{cardInfo.center != null ? null : (
-										<img
-											src={cardInfo.center}
-											alt='Card`s Center Image'
-											className='object-cover border rounded-md h-[30vh] w-[30vh]'
-											onDragStart={(event) => event.preventDefault()}
-										/>
-									)}
+						<motion.div className='shadow-md p-[1em] break-keep' whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+							<div className='flex flex-row justify-center items-center max-w-[42rem]'>
+								<div className='flex flex-row'>
+									<div className='flex flex-col justify-center align-middle'>
+										<b><article className='text-4xlg font-official def-theme-text w-[25vw] lg:w-[14rem]'>{cardInfo.upper}</article></b>
+										<article className='text-2xlg font-official def-theme-text w-fill lg:w-[18rem]'>{cardInfo.bottom}</article>
+									</div>
+									<div>
+										{cardInfo.center == null ? null : (
+											<img
+												src={cardInfo.center}
+												alt='Card`s Center Image'
+												className='object-cover border rounded-md h-[10vh] w-[10vh]'
+												onDragStart={(event) => event.preventDefault()}
+											/>
+										)}
+										<div className='relative top-0 flex flex-col break-keep justify-center items-center'>
+											<cite className='font-thin text-md def-theme-text max-w-[4em] overflow-x-clip duration-1000 hover:max-w-[12em]'>
+												{cardInfo.author}
+											</cite>
+											<time className='antialiased font-ultraThin text-sm def-theme-text'>{cardInfo.time}</time>
+										</div>
+									</div>
 								</div>
 							</div>
 						</motion.div>

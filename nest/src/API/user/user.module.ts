@@ -20,29 +20,25 @@ import { JsonWebTokenStrategy } from "./json-web-token/json-web-token.strategy"
 	//I know i could make module for jwt but i am too lazy to make an async module init
 	imports: [
 		//Checks is request's jwt good or bad
-		PassportModule.register({ defaultStrategy: 'jwt' }),
+		PassportModule.register({ defaultStrategy: "jwt" }),
 		//Its to connect for mongodb
 		MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
 		//Its just a token's config fule
 		JwtModule.register({
 			secret: process.env.ATOKENSECRET,
 			signOptions: { expiresIn: "2d" },
-		})
+		}),
 	],
 	//This is for jwt input
 	controllers: [JsonWebTokenController],
 	providers: [
 		//To handle graphql and db
-		UserService, UserResolver,
+		UserService,
+		UserResolver,
 		//This is for jwt
 		JsonWebTokenService,
-		{
-			//Its just script which runs everytime someone send request
-			provide: APP_GUARD,
-			useClass: JsonWebTokenGuard,
-		},
 		//My special jwt validation, idk is server will use it
-		JsonWebTokenStrategy
+		JsonWebTokenStrategy,
 	],
 })
 export class UserModule {}

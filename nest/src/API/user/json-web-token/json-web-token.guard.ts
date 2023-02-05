@@ -12,8 +12,6 @@ export class JsonWebTokenGuard extends AuthGuard("JWT") {
 		return this.validateRequest(request);
 	}
 	validateRequest(request: any) {
-		//Just to look what those hUmans want from my server
-		console.log(request)
 		//If they do not want to make things bad then pass
 		if(request == "Make Things Bad") {
 			return false

@@ -6,6 +6,10 @@ export default function StyleButton() {
 	const Style = localStorage.getItem("style")
 	//Sets the style
 	function setStyle() {
+		//Check for null
+		if(Style == null || Style == undefined) {
+			localStorage.setItem("style", "list")
+		}
 		//Creates cookie for style to save it after refresh
 		if (Style == "block") localStorage.setItem("style", "list")
 		else if (Style == "list") localStorage.setItem("style", "block")

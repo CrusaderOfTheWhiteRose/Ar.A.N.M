@@ -22,7 +22,10 @@ export default function SearchButton() {
 	//Make every variables=null and sets value for needed variable
 	function SwitchSearchIn(searchIn: number) {
 		//Every variable is null (""=null)
-		setId("");setAuthor("");setUpper("");setBottom("")
+		setId("")
+		setAuthor("")
+		setUpper("")
+		setBottom("")
 		//Sets value compare on which button user pressed
 		switch (searchIn) {
 			case 1:
@@ -136,17 +139,19 @@ export default function SearchButton() {
 								</div>
 							</div>
 							<div className='p-[0.5em]'>
-								<div className='gap-[4vmax] lg:p-12 lg:gap-12 w-screen flex flex-wrap-reverse'>
-									<Reorder.Group axis='y' values={data} onReorder={data}>
+								{data != undefined ? (
+									<div className='gap-[4vmax] lg:p-12 lg:gap-12 w-screen flex flex-wrap-reverse'>
 										{data.allCard.map((card: any) => (
-											<Reorder.Item key={card.id} value={card}>
-												<CardContext.Provider value={card}>
-													<Card key={card.id} />
-												</CardContext.Provider>
-											</Reorder.Item>
+											<CardContext.Provider value={card}>
+												<Card key={card.id} />
+											</CardContext.Provider>
 										))}
-									</Reorder.Group>
-								</div>
+									</div>
+								) : (
+									<div className='w-screen h-screen flex justify-center items-center def-theme-text def-h1'>
+										<div>¯\_(ツ)_/¯</div>
+									</div>
+								)}
 							</div>
 						</div>
 					</motion.div>

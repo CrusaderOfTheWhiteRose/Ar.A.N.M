@@ -7,24 +7,24 @@ import { SIGNIN_USER } from "../API/users/signin.users"
 
 export function SignInComponent() {
 	//Variables to send
-	let name = "",
-		email = "",
-		password = "",
-		rememberMe = false
+	const [rememberMe, setRememberMe] = React.useState(false)
+	const [name, setName] = React.useState("")
+	const [email, setEmail] = React.useState("")
+	const [password, setPassword] = React.useState("")
 	//All the inputs in one place is good practice
 	function inputHandler(event: any, inputNum: number) {
 		switch (inputNum) {
 			case 1:
-				name = event.target.value
+				setName(event.target.value)
 				break
 			case 2:
-				email = event.target.value
+				setEmail(event.target.value)
 				break
 			case 3:
-				password = event.target.value
+				setPassword(event.target.value)
 				break
 			case 4:
-				rememberMe = event.target.value
+				setRememberMe(!rememberMe)
 				break
 		}
 	}
@@ -36,9 +36,12 @@ export function SignInComponent() {
 	const [signIn, { error }] = useMutation(SIGNIN_USER, { variables: { name, email, password } })
 	//If there is no errors
 	if (error == undefined) {
-		useInjected(AppService).Refresh(name, false)
-		if (rememberMe != false) {
-			useInjected(AppService).ResponseToken(email)
+		//So nobody will pass without pressing Submit
+		if (RouteCall == "Home") {
+			useInjected(AppService).Refresh(name, false)
+			if (rememberMe != false) {
+				useInjected(AppService).ResponseToken(email)
+			}
 		}
 	}
 	//Send user to home page
@@ -46,11 +49,39 @@ export function SignInComponent() {
 	//Just what to do on submit, i do not like the HTML one, so will it be so
 	function onSubmit() {
 		event!.preventDefault()
-		signIn()
-		if (error) {
+		if (name == "") {
+			alert(`I will call you Blobens if you wont write down your name. But its used, so make another one`)
 			return
 		}
-		makeRouteCall("Home")
+		if (email == "") {
+			alert(`Do not about email, i must know it to send uselles spam`)
+			return
+		}
+		if (password == "") {
+			alert(
+				`Did you forget about password? Yes, you did, now every one in the galaxy can shitpost from your account, but i will give you a chance`
+			)
+			return
+		}
+		if (name.length > 12) {
+			alert("Calm down, you do not have to write you full name. 12 Charapters may be enough")
+			return
+		}
+		if (!email.includes("@")) {
+			alert(`Dunno, it does not look like email, where is the "@"`)
+			return
+		}
+		if (password.length < 6) {
+			alert(`Is your password 1234? Make it 123456 at last`)
+			return
+		}
+		if (error) {
+			alert(`Its weird, but your name or email may be in use`)
+			return
+		} else {
+			signIn()
+			makeRouteCall("Home")
+		}
 	}
 	return (
 		<form className='lg:mt-6 lg:px-[0.5em] lg:py-[2em] shadow-none lg:shadow-md relative flex flex-col gap-[4vh]'>
@@ -148,7 +179,7 @@ export function SignInComponent() {
 					</button>
 				</div>
 			</div>
-			<div className='flex justify-center items-center flex-col gap-[2vh] lg:gap-2'>
+			<div className='flex justify-center items-center flex-col gap-[2vh] lg:gap-4'>
 				<div className='flex flex-row items-center'>
 					<input
 						id='checkbox'
