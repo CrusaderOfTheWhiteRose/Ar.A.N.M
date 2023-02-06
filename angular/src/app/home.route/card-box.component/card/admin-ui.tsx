@@ -55,6 +55,7 @@ export default function AdminUI() {
 		event!.preventDefault()
 		updateCard()
 		setFormUpdate(false)
+		location.reload()
 	}
 	//To update the card
 	const [updateCard] = useMutation(UPDATE_CARD, {
@@ -180,6 +181,7 @@ export default function AdminUI() {
 							<button
 								onClick={() => {
 									deleteCard()
+									location.reload()
 								}}>
 								Yep
 							</button>

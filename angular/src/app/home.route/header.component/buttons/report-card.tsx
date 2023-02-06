@@ -34,6 +34,7 @@ export default function ReportButton() {
 	function onSubmit() {
 		event!.preventDefault()
 		setFormOpen(!formOpen)
+		location.reload()
 	}
 	//To check is user logged in P.S. Its looks rly weird but its sure works
 	const [checkUser, doCheckUser] = React.useState(false)

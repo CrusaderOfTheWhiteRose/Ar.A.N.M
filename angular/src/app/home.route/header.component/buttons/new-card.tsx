@@ -10,8 +10,7 @@ import { CREATE_CARD } from "src/app/API/cards/create.cards"
 export default function NewCardButton() {
 	//Init variables which will be used to create card
 	//eslint-disable-next-line prefer-const
-	let time = "",
-		author = ""
+	let time = "", author = ""
 	const [upper, setUpper] = React.useState<string>("")
 	const [center, setCenter] = React.useState<string>()
 	const [bottom, setBottom] = React.useState<string>("")
@@ -52,6 +51,7 @@ export default function NewCardButton() {
 		event!.preventDefault()
 		createCard()
 		setFormOpen(false)
+		location.reload()
 	}
 	//To check is user logged in P.S. Its looks rly weird but its sure works
 	const [checkUser, doCheckUser] = React.useState(false)
