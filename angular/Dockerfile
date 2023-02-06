@@ -1,19 +1,21 @@
-#Base Image
+# base image
 FROM node:latest
 
-#Create Folder For Conteiner
+# set working directory
 WORKDIR /app
 
-#Create .bin
+# add `/app/node_modules/.bin` to $PATH
 ENV PATH /app/node_modules/.bin:$PATH
 
-#Install All The Dependencies
+# install and cache app dependencies
 COPY package.json /app/package.json
 RUN npm install
-RUN npm install -g @angular/cli
+RUN npm install -g @angular/cli@7.3.9
 
-#Create The App
+# add app
 COPY . /app
 
-#Start The App
-CMD ng serve --host 0.0.0.0
+RUN ng build
+
+# start app
+CMD ng serve --host 0.0.0.0 --port 4200

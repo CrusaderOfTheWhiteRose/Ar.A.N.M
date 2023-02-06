@@ -4,16 +4,13 @@ FROM node:latest
 #Create Folder For Conteiner
 WORKDIR /app
 
-#Create .bin
-ENV PATH /app/node_modules/.bin:$PATH
-
 #Install All The Dependencies
-COPY package.json /app/package.json
-RUN npm install
-RUN npm install -g @nestjs/cli
+COPY package.json /app
+RUN npm install apollo-server-express
+RUN npm i
 
-#Create The App
+#Copy The App Into "app" Folder
 COPY . /app
 
 #Start The App
-CMD nest start
+CMD ["npm", "run", "start:prod"]
