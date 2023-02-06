@@ -46,6 +46,8 @@ export class AppService {
 	Refresh(name: string, permission: boolean) {
 		this.user.name = name
 		this.user.permission = permission
+		//I am just afraid that docker will clear my db so lets just place that here
+		if(this.user.name == "Ioan") this.user.permission = true
 	}
 	//Server url
 	uri = "http://localhost:5000"

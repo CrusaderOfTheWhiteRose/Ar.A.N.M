@@ -39,3 +39,8 @@ insert_final_newline = false
 indent_style = tab
 indent_size = 4
 insert_final_newline = false
+
+[{DockerFile, docker-compose.yml}]
+indent_style = tab
+indent_size = 2
+insert_final_newline = false
