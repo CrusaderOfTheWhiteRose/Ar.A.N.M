@@ -1,6 +1,5 @@
 import { Injectable, Inject } from "@angular/core"
 import { AppService } from "../app.service"
-import { HomeRouteModule } from "./home-route.component.module"
 
 @Injectable()
 export class HomeRouteService {
@@ -10,7 +9,7 @@ export class HomeRouteService {
 	//Check ifs user logged in to show `the annoy box`
 	ShowRulesAlert() {
 		if (this.AS.user.name == ``) {
-			this.ShowPolicyRules = false
+			this.ShowPolicyRules = true
 		}
 	}
 	//Send user to rules and sets that user have seen it

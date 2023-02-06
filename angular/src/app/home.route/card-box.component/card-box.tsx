@@ -25,7 +25,7 @@ export default function CardBox() {
 			</div>
 		)
 	return (
-		<main className='gap-[4vmax] p-[4vmax] lg:p-12 lg:gap-12 w-screen flex flex-wrap-reverse'>
+		<main className='gap-[4vmax] p-[4vmax] lg:p-12 lg:gap-12 w-screen flex justify-center flex-wrap-reverse'>
 			{data.allCard.map((card: any) => (
 				<CardContext.Provider key={card.id} value={card}>
 					<Card />

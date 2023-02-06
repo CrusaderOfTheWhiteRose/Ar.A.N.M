@@ -11,3 +11,6 @@
 2.Then open browser on http://localhost:4200 (It can take time to run)
 3.Create a new user with "Ioan" name to have admin permission
 4.Create some cards and explore it! Like card, report card, log in, try to update or delete card
+
+P.S. Its still in development as well. Use it on your own risk
+P.S.S I will work on this as adding more RxJS and make full migration to v4 Apollo

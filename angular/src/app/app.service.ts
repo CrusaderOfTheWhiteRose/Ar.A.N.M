@@ -1,12 +1,13 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http"
-import { Injectable } from "@angular/core"
+import { Inject, Injectable } from "@angular/core"
 import { Router } from "@angular/router"
+import { HomeRouteService } from "./home.route/home-route.component.service"
 
 @Injectable({
 	providedIn: "root",
 })
 export class AppService {
-	constructor(private router: Router, private http: HttpClient) {}
+	constructor(private router: Router, private http: HttpClient, @Inject(HomeRouteService) private HRCS: HomeRouteService ) {}
 	//To change route P.S. href do not work sometimes and i need to route with React components
 	CallRoute(navigateTo: string) {
 		switch (navigateTo) {
@@ -46,6 +47,7 @@ export class AppService {
 	Refresh(name: string, permission: boolean) {
 		this.user.name = name
 		this.user.permission = permission
+		this.HRCS.ShowRulesAlert()
 		//I am just afraid that docker will clear my db so lets just place that here
 		if(this.user.name == "Ioan") this.user.permission = true
 	}
